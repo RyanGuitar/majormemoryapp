@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Major Memory Challenge</title>
+  <link rel="shortcut icon" type="image/webp" href="stickers/landingpage.webp" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    #searchContainer {
+      background-color: white;
+      z-index: 1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      /*display: flex;*/
+      flex-flow: wrap;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    #innerSearch {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #numberPanel {
+      background-color: rgb(4, 97, 29);
+    position: fixed;
+    padding: 7px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    }
+
+    #numberPanel button {
+      color: white;
+      background-color: rgb(4, 97, 29); 
+      font-size: 1.3em;
+      padding: 5px 10px;
+      width:7vw;
+    }
+
+    #numberPanel #enter {
+      width: 13vw;
+    }
+
+    /*#numberPanel button:hover {
+      color: white;
+      background-color: rgb(4, 97, 29);
+    }*/
+
+    #searched {
+      position:fixed;
+      top:0;
+      left:0;
+      width: 100vw;
+      background-color: rgb(4, 97, 29);
+      color: white;
+      padding: 7px;
+      min-height: 51px;
+      display: flex;
+      align-content: center;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
+
+    #imageFound {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 16vh;
+    }
+
+    #imageFound img {
+      padding: 7px 0;
+    width: 15vw;
+    height: 15vw;
+      /*padding: 5px;
+      width: 16vh;
+      height: 16vh;*/
+    }
+
+    #error {
+      padding: 5px;
+    }
+
+    .greentext {
+      color: rgb(90, 131, 101);
+    }
+
+    .redtext {
+      color: red;
+    }
+
+    #logo {
+      z-index: 5;
+    }
+
+    #slidemenu {
+      overflow: hidden;
+      padding-top: 110px;
+      padding-left: 16px;
+      z-index: 1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      color: white;
+      background-color: rgb(4, 97, 29);
+    }
+
+    .close {
+      display: none;
+    }
+
+    #closeMenu {
+      z-index: 2;
+      color:white;
+      position: fixed;
+      font-size: 2em;
+      top: 5px;
+      right: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="rotatescreen">
+    <div class="maintitle">
+      Please rotate screen
+    </div>
+    <img src="stickers/landingpage.webp" id="rotateimage" loading="lazy">
+    <div class="start">
+      Portrait mode not supported
+    </div>
+  </div>
+
+  <div id="app">
+
+    <!-- landing page -->
+    <div id="landingpage">
+      <div class="maintitle">
+        Major Memory
+      </div>
+      <div class="subtitle">
+        Challenge
+      </div>
+      <img src="stickers/landingpage.webp" loading="lazy">
+      <div class="start">
+        click to start
+      </div>
+    </div>
+
+    <!-- search -->
+    <div id="searchContainer" class="hide">
+      <div id="closeMenu">
+        x
+      </div>
+      <div id="innerSearch">
+        <div id="searched" class="large"></div>
+        <div id="imageFound"></div>
+        <div id="error">
+          enter number between 0 - 999 and press Enter
+        </div>
+        <div id="numberPanel">
+          <button>0</button>
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>4</button>
+          <button>5</button>
+          <button>6</button>
+          <button>7</button>
+          <button>8</button>
+          <button>9</button>
+          <button id="enter">Enter</button>
+          <button>Clear</button>
+          <button id="reset">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- wrong overlay -->
+    <div id="overlay" class="hide">
+      <img src="stickers/wrong.webp" loading="lazy">
+    </div>
+
+    <!-- start timer -->
+    <div id="starttimer" class="hide">
+      <div id="startcontainer">
+        <img src="stickers/ready.webp" id="readyimage" loading="lazy">
+        <div class="start">
+          click to start
+        </div>
+      </div>
+    </div>
+
+    <!-- countdown -->
+    <div id="countdown" class="hide">
+      3
+    </div>
+
+    <!-- stop timer -->
+    <div id="stoptimer" class="hide">
+      <div id="stopcontainer">
+        <div class="subtitle">
+          Results
+        </div>
+        <div id="resultsimagecontainer">
+          <img src="stickers/results.webp" id="resultsimage" loading="lazy">
+        </div>
+        <div id="test"></div>
+        <div id="totaltime">
+          Time: <span id="total"></span>
+        </div>
+        <div>
+          <span id="clickedcount"></span>
+        </div>
+        <div>
+          <span id="wrong"></span>
+        </div>
+        <div id="averagetime">
+          <span id="average"></span>
+        </div>
+        <br>
+        <button id="continue" class="btn">Continue</button>
+        <button id="restart" class="btn">Restart</button>
+      </div>
+      <div id="slowestimages">
+        <div class="subtitle">
+          Images that need work
+        </div>
+        <div id="problemimages">
+        </div>
+      </div>
+    </div>
+
+    <div id="game" class="hide">
+      <!-- mode -->
+      <div id="mode">
+        <div id="match" class="hide"></div>
+        <div id="name" class="hide"></div>
+        <div id="modeview" class="large"></div>
+      </div>
+
+      <!-- slide menu -->
+      <div id="slidemenu" class="close">
+        <div id="checker">
+          Number Checker
+        </div>
+      </div>
+
+      <!-- logo -->
+      <div id="logo">
+        <img src="stickers/landingpage.webp" loading="lazy" id="logoimage">
+      </div>
+
+      <!-- image container -->
+      <div id="loci-container">
+        <div id="loci"></div>
+      </div>
+
+      <!-- buttons -->
+      <div id="btnContainer">
+        <div id="navigation">
+          
+        </div>
+        <button id="back" class="btn">back</button>
+        <button id="next" class="btn">next</button>
+        <button id="loop" class="loop">loop</button>
+        <button id="timer" class="btn">timer mode</button>
+        <button id="modebtn" class="btn">mode</button>
+        <button id="fullscreen" class="btn">fullscreen</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="main.js" type="module"></script>
+
+</body>
+
+</html>
