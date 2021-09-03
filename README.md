@@ -10,4 +10,6 @@ Any images that were incorrectly clicked will be displayed for further revision.
 
 Any contribution to this project will be highly appreciate.
 
+view demo at https://ryanguitar.github.io/majormemoryapp/
+
 Thank you in advance.
